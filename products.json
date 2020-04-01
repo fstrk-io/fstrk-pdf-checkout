@@ -1,0 +1,21 @@
+[
+  {
+    "key": "dd35f031-5861-4d4d-9f13-6420afcfdb7e",
+    "price": 76024,
+    "detail": {
+      "name": "AD2/K9B=-G56",
+      "rate": "78,72",
+      "image": "https://flex.ftrcdn.com/tickets/ad2-k9b-g56-vg1lb1y-dfv7sqs_oMancyf.png",
+      "detail": "Ручной передатчик с капсюлем KSM9, цвет чёрный"
+    },
+    "quantity": 3
+  },
+  {
+    "key": "5fd5f040-1c75-4a84-abea-ba0c89f74e10",
+    "price": 10291,
+    "detail": {
+      "name": "BETA 52A"
+    },
+    "quantity": 1
+  }
+]

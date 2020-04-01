@@ -1,0 +1,16 @@
+[
+  {
+    "rukovoditel": {
+      "name": "Иванов И.И.",
+      "doverennost": "доверенность № 123 от 20.02.2020"
+    },
+    "buhgalter": {
+      "name": "Иванов И.И.",
+      "doverennost": "доверенность № 123 от 20.02.2020"
+    },
+    "manager": {
+      "name": "Иванов И.И.",
+      "doverennost": null
+    }
+  }
+]

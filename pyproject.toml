@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "fstrk-pdf-checkout"
+version = "0.1.0"
+description = "PDF generator for Fstrk.io"
+authors = ["Vic Shóstak <vikkyshostak@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+jinja2 = "^2.11.1"
+weasyprint = "^51"
+num2words = "^0.5.10"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.5"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

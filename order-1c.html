@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Счет на оплату № {{ order.number }} от {{ order.created }}</title>
+    <style>
+      * {
+        font-family: sans-serif;
+        box-sizing: border-box;
+      }
+      body {
+        font-size: 16px;
+      }
+      hr {
+        height: 4px;
+        background-color: black;
+        margin: 16px 0;
+      }
+      table {
+        width: 100%;
+        margin: 16px 0;
+      }
+      th, td {
+        border: 1px solid black;
+        padding: 4px;
+      }
+      table.no-border th,
+      table.no-border td {
+        border: 0;
+      }
+      table td.border-bottom {
+        border-bottom: 1px solid black;
+        width: 30%;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .small {
+        font-size: 13px;
+      }
+      .pull-right {
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td colspan="2" rowspan="2">{{ customer.bank.name }}<br/><br/>Банк получателя</td>
+        <td>БИК</td>
+        <td>{{ customer.bank.bik }}</td>
+      </tr>
+      <tr>
+          <td>Сч. №<br></td>
+          <td>{{ customer.bank.kor_schet }}</td>
+      </tr>
+      <tr>
+        <td>ИНН {{ customer.inn }}</td>
+        <td>КПП {{ customer.kpp }}</td>
+        <td rowspan="2">Сч. №</td>
+        <td rowspan="2">{{ customer.rasch_schet }}</td>
+      </tr>
+      <tr>
+        <td colspan="2">{{ customer.name }}<br><br>Получатель</td>
+      </tr>
+    </table>
+    <h1>Счет на оплату № {{ order.number }} от {{ order.created }}</h1>
+    <h2>
+      В платежном поручении в назначении платежа указывать: «Оплата по Договор
+      поставки No {{ order.number }} от {{ order.created }}г.»!
+    </h2>
+    <hr/>
+    <table class="no-border">
+      <tr>
+        <td>Поставщик:</td>
+        <td class="bold">ИНН {{ customer.inn }} КПП {{ customer.kpp }} {{ customer.name }}, {{ customer.address }}</td>
+      </tr>
+      <tr>
+        <td>Покупатель:</td>
+        <td class="bold">{{ shure.rekveziti }}</td>
+      </tr>
+      <tr>
+        <td>Основание:</td>
+        <td class="bold">Договор поставки No {{ order.number }} от {{ order.created }}г.</td>
+      </tr>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Код</th>
+          <th>Товар</th>
+          <th>Кол-во</th>
+          <th>Ед.</th>
+          <th>Цена</th>
+          <th>Сумма</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for index, object in products %}
+        <tr>
+          <td>{{ index }}</td>
+          <td>{{ object.detail.name }}</td>
+          <td>{{ object.detail.detail }}</td>
+          <td>{{ object.quantity }}</td>
+          <td>шт.</td>
+          <td>{{ (object.price / object.quantity)|round|int }}</td>
+          <td>{{ object.price }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <hr/>
+    <div class="bold pull-right">
+      <p>
+        Итого: {{ products|sum(attribute='price') }}<br/>
+        В том числе НДС: {{ products|sum(attribute='price')|round|int }}
+      </p>
+    </div>
+    <div>
+      <p>
+        Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {{ products|sum(attribute='price') }}<br />
+        <strong>{{ summa_text }}</strong>
+      </p>
+    </div>
+    <hr/>
+    <table class="no-border">
+      <tr>
+        <td rowspan="2">Руководитель</td>
+        <td class="border-bottom">п</td>
+        <td>/ {{ shure.rukovoditel.name }} /</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="small">На основании {{ shure.rukovoditel.doverennost }}</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Бухгалтер</td>
+        <td class="border-bottom">п</td>
+        <td>/ {{ shure.buhgalter.name }} /</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="small">На основании {{ shure.buhgalter.doverennost }}</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Менеджер</td>
+        <td class="border-bottom">п</td>
+        <td>/ {{ shure.manager.name }} /</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="small">
+          {% if shure.manager.doverennost %}На основании {{ shure.manager.doverennost }}{% endif %}
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
