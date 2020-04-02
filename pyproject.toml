@@ -12,6 +12,8 @@ weasyprint = "^51"
 num2words = "^0.5.10"
 black = "^19.10b0"
 flask = "^1.1.1"
+boto3 = "^1.12.34"
+pytz = "^2019.3"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5"

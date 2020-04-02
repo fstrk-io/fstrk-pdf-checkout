@@ -1,8 +1,8 @@
 import json
 
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect
 
-from renderer import render_pdf
+from renderer import render_pdf, upload_file
 
 app = Flask(__name__)
 
@@ -54,18 +54,39 @@ sample_payload_obj = {
 
 
 
-@app.route("/", methods=["GET"])
+@app.route("/", methods=["GET", "POST"])
 def help():
-
-    payload_str = json.dumps(sample_payload_obj, indent=4, ensure_ascii=False)
-    return render_template('sample_payload.html', sample_payload_obj=payload_str)
-
-
-@app.route("/pdf/", methods=["POST", "GET"])
-def pdf():
-
+    """
+    Форма генерации счета для дебага. Принимает POST-запрос с пейлоадом, отдает PDF
+    """
     if request.method == 'GET':
-        render_pdf(sample_payload_obj, './output.pdf')
+        payload_str = json.dumps(sample_payload_obj, indent=4, ensure_ascii=False)
+        return render_template('sample_payload.html', sample_payload_obj=payload_str)
+    payload = json.loads(request.form['payload'])
+    render_pdf(payload, './output.pdf')
+    response_url = upload_file('./output.pdf')
+    return redirect(response_url)
+
+
+@app.route("/pdf/", methods=[ "GET"])
+def pdf():
+    """
+    Демо-версия PDF отчеа, открывается прямо в браузере,
+    это удобнее, чем каждый раз скачивать
+    """
+    render_pdf(sample_payload_obj, './output.pdf')
+    upload_file('./output.pdf')
     return send_file('./output.pdf', attachment_filename='output.pdf')
+
+
+
+@app.route("/api/generate/", methods=["POST"])
+def api():
+    """ Продакшен-ручка. Принимает данные в JSON, возвращает ссылку в JSON """
+    payload = request.json
+    render_pdf(payload, './output.pdf')
+    response_url = upload_file('./output.pdf')
+    return {'url': response_url}
+
 
 

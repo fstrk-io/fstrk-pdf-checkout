@@ -1,19 +1,50 @@
 <html>
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
 <body>
 
-<div class="card" style="width: 100%">
-  <div class="card-body">
-    <h5 class="card-title">Example request</h5>
-    <p class="card-text">
-        <pre>POST /pdf
-{{ sample_payload_obj }}</pre>
-    </p>
-    <a href="/pdf/" class="btn btn-primary">Try it out</a>
-  </div>
+<div class="container">
+    <h1>Отладка</h1>
+    <p>Введите данные, нажмите "Скачать файл". (Посмотреть пример без скачивания можно <a href="/pdf/">здесь</a>)</p>
+    <form method="post">
+        <div class="form-group">
+            <textarea
+                rows=20
+                style="font-family: 'Courier New', monospace;"
+                class="form-control"
+                name="payload"
+            >{{ sample_payload_obj }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Скачать файл</button>
+    </form>
+
+    <h1>API</h1>
+
+    <p>Отправьте POST-запрос с данными на адрес <code>/api/generate/</code>, в ответе будет URL отчета.</p>
+    <pre>
+import requests
+
+
+res = requests.post(
+    'http://0.0.0.0:5000/api/generate/',
+    json={
+        "customer": ...,
+        "shure": ...,
+        "products": [
+            ...
+        ],
+        "order": ...,
+    }
+)
+
+
+print(res.json())   # в ответ придет: {'url': '.....'}
+
+    </pre>
 </div>
+
 </body>
 </html>
