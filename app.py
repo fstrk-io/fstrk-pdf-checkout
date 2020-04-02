@@ -6,8 +6,6 @@ from renderer import render_pdf
 
 app = Flask(__name__)
 
-app.debug
-
 
 sample_payload_obj = {
     "customer": {
@@ -63,7 +61,7 @@ def help():
     return render_template('sample_payload.html', sample_payload_obj=payload_str)
 
 
-@app.route("/pdf", methods=["POST", "GET"])
+@app.route("/pdf/", methods=["POST", "GET"])
 def pdf():
 
     if request.method == 'GET':
