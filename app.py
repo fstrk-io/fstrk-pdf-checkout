@@ -18,6 +18,7 @@ sample_payload_obj = {
         "kpp": "41000000",
         "rasch_schet": "4212300004450",
         "address": "Москва, ул. Строителей, 9",
+        "name": "ООО \"Рога и копыта\"",
     },
     "shure": {
         "rukovoditel": {
@@ -54,14 +55,14 @@ sample_payload_obj = {
 }
 
 
-
 @app.route("/", methods=["GET"])
 def help():
     """
     Форма генерации счета для дебага. Принимает POST-запрос с пейлоадом, отдает PDF
     """
     if request.method == 'GET':
-        payload_str = json.dumps(sample_payload_obj, indent=4, ensure_ascii=False)
+        payload_str = json.dumps(
+            sample_payload_obj, indent=4, ensure_ascii=False)
         return render_template('sample_payload.html', sample_payload_obj=payload_str)
     payload = json.loads(request.form['payload'])
     render_pdf(payload, './output.pdf')
@@ -69,7 +70,7 @@ def help():
     return redirect(response_url)
 
 
-@app.route("/pdf/", methods=[ "GET"])
+@app.route("/pdf/", methods=["GET"])
 def pdf():
     """
     Демо-версия PDF отчеа, открывается прямо в браузере,
@@ -80,7 +81,6 @@ def pdf():
     return send_file('./output.pdf', attachment_filename='output.pdf')
 
 
-
 @app.route("/api/generate/", methods=["POST"])
 def api():
     """ Продакшен-ручка. Принимает данные в JSON, возвращает ссылку в JSON """
@@ -88,6 +88,4 @@ def api():
     render_pdf(payload, './output.pdf')
     response_url = upload_file('./output.pdf')
     return {'url': response_url}
-
-
 

@@ -8,6 +8,8 @@
 # Cache
 __pycache__/
 
-.venv
+# Virtualenv
+.venv/
 
-output.pdf
+# Output PDF
+*.pdf

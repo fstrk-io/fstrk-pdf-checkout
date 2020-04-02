@@ -12,31 +12,31 @@
     }
 
     html, body {
-      font-size: 14px;
+      font-size: 10px;
       color: black;
     }
 
     hr {
-      height: 4px;
+      height: 3px;
       background-color: black;
-      margin: 14px 0;
+      margin: 16px 0;
     }
 
     h1 {
-      font-size: 22px;
+      font-size: 20px;
     }
 
     h2 {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     p {
-      margin: 22px 0;
+      margin: 20px 0;
     }
 
     table {
       width: 100%;
-      margin: 14px 0;
+      margin: 16px 0;
     }
 
     th, td {
@@ -59,11 +59,15 @@
     }
 
     .small {
-      font-size: 12px;
+      font-size: 8px;
     }
 
     .pull-right {
       text-align: right;
+    }
+
+    .pull-center {
+      text-align: center;
     }
   </style>
 </head>
@@ -123,13 +127,13 @@
   <tbody>
   {% for object in products %}
   <tr>
-    <td>{{ loop.index }}</td>
+    <td class="pull-center">{{ loop.index }}</td>
     <td>{{ object.detail.name }}</td>
     <td>{{ object.detail.detail }}</td>
-    <td>{{ object.quantity }}</td>
+    <td class="pull-right">{{ object.quantity }}</td>
     <td>шт.</td>
-    <td>{{ (object.price / object.quantity)|round|int }}</td>
-    <td>{{ object.price }}</td>
+    <td class="pull-right">{{ (object.price / object.quantity)|round|int }}</td>
+    <td class="pull-right">{{ object.price }}</td>
   </tr>
   {% endfor %}
   </tbody>
