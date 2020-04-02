@@ -12,7 +12,7 @@ def dt_format(value, format='%d-%m-%Y'):
     """
     Фильтр: форматирование даты
     """
-    return value.strptime(format)
+    return datetime.strptime(value, format)
 
 
 sample_payload_obj = {
