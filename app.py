@@ -29,6 +29,7 @@ sample_payload_obj = {
             "doverennost": "доверенность № 123 от 20.02.2020",
         },
         "manager": {"name": "Иванов И.И.", "doverennost": None},
+        "rekveziti": "ИНН 7100000 КПП 8299999, Москва, ул. Ленина, д. 1",
     },
     "products": [
         {
@@ -53,7 +54,6 @@ sample_payload_obj = {
 }
 
 
-
 @app.route("/", methods=["GET"])
 def help():
 
@@ -67,5 +67,4 @@ def pdf():
     if request.method == 'GET':
         render_pdf(sample_payload_obj, './output.pdf')
     return send_file('./output.pdf', attachment_filename='output.pdf')
-
 
