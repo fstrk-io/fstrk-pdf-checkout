@@ -1,29 +1,16 @@
 import json
 
-# from weasyprint import HTML, CSS
-# from weasyprint.fonts import FontConfiguration
-from jinja2 import Template, Environment, DictLoader
+from flask import Flask, render_template, request, send_file
 
-# from num2words import num2words # TODO write converter
+from renderer import render_pdf
 
-# Files
-template_file = open("order-1c.html", "r").read()
-products_file = open("products.json", "r").read()  # TODO change to API point
-customer_file = open("customer.json", "r").read()  # TODO change to API point
-shure_file = open("shure.json", "r").read()  # TODO change to API point
+app = Flask(__name__)
 
-# Setup
-env = Environment(loader=DictLoader({"template.html": template_file}))
-products = json.loads(products_file)
-customer = json.loads(customer_file)
-shure = json.loads(shure_file)
+app.debug
 
-# Numbers to words converter
-# summa_text = num2words(123456789123, lang='ru') # TODO write converter
 
-# Pack 'em all to template
-template = env.get_template("template.html").render(
-    customer={
+sample_payload_obj = {
+    "customer": {
         "bank": {
             "name": "ПАО СБЕРБАНК",
             "bik": "7700000",
@@ -34,7 +21,7 @@ template = env.get_template("template.html").render(
         "rasch_schet": "4212300004450",
         "address": "Москва, ул. Строителей, 9",
     },
-    shure={
+    "shure": {
         "rukovoditel": {
             "name": "Иванов И.И.",
             "doverennost": "доверенность № 123 от 20.02.2020",
@@ -45,8 +32,7 @@ template = env.get_template("template.html").render(
         },
         "manager": {"name": "Иванов И.И.", "doverennost": None},
     },
-    # summa_text=summa_text, # TODO write converter
-    products=[
+    "products": [
         {
             "key": "dd35f031-5861-4d4d-9f13-6420afcfdb7e",
             "price": 76024,
@@ -65,13 +51,23 @@ template = env.get_template("template.html").render(
             "quantity": 1,
         },
     ],
-    # TODO change to API point
-    order={"number": "123", "created": "27 мая 2020"},
-    # order=json.load,
-)
+    "order": {"number": "123", "created": "27 мая 2020"},
+}
 
-with open("t.html", "w") as f:
-    f.write(template)
 
-# # Generate PDF from HTML file
-# HTML(string=template).write_pdf("order.pdf")
+
+@app.route("/", methods=["GET"])
+def help():
+
+    payload_str = json.dumps(sample_payload_obj, indent=4, ensure_ascii=False)
+    return render_template('sample_payload.html', sample_payload_obj=payload_str)
+
+
+@app.route("/pdf", methods=["POST", "GET"])
+def pdf():
+
+    if request.method == 'GET':
+        render_pdf(sample_payload_obj, './output.pdf')
+    return send_file('./output.pdf', attachment_filename='output.pdf')
+
+

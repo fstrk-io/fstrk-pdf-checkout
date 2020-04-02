@@ -1,0 +1,12 @@
+.idea
+*.pyc
+.mypy_cache
+.pytest_cache
+.env
+.editorconfig
+.gitignore
+setup.cfg
+tests/*
+bitbucket-pipelines.yml
+.venv
+*.xlsx

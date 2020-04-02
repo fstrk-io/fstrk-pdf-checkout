@@ -7,3 +7,5 @@
 
 # Cache
 __pycache__/
+
+.venv
