@@ -1,19 +1,10 @@
 import json
-from datetime import datetime
 
+from datetime import datetime
 from flask import Flask, render_template, request, send_file, redirect
 from renderer import render_pdf, upload_file
 
 app = Flask(__name__)
-
-
-@app.template_filter('dt_format')
-def dt_format(value, format='%d-%m-%Y'):
-    """
-    Фильтр: форматирование даты
-    """
-    return datetime.strptime(value, format)
-
 
 sample_payload_obj = {
     "customer": {
@@ -43,7 +34,7 @@ sample_payload_obj = {
     "products": [
         {
             "key": "dd35f031-5861-4d4d-9f13-6420afcfdb7e",
-            "price": 76024,
+            "price": 76024.2,
             "detail": {
                 "name": "AD2/K9B=-G56",
                 "rate": "78,72",
@@ -54,12 +45,12 @@ sample_payload_obj = {
         },
         {
             "key": "5fd5f040-1c75-4a84-abea-ba0c89f74e10",
-            "price": 10291,
+            "price": 10291.3,
             "detail": {"name": "BETA 52A"},
             "quantity": 1,
         },
     ],
-    "order": {"number": "123", "created": "27 мая 2020"},
+    "order": {"number": "123", "created": f"{datetime.now():%d %B %Y}"},
 }
 
 
@@ -70,11 +61,14 @@ def help():
     """
     if request.method == 'GET':
         payload_str = json.dumps(
-            sample_payload_obj, indent=4, ensure_ascii=False)
+            sample_payload_obj, indent=4, ensure_ascii=False
+        )
         return render_template('sample_payload.html', sample_payload_obj=payload_str)
+
     payload = json.loads(request.form['payload'])
     render_pdf(payload, './output.pdf')
     response_url = upload_file('./output.pdf')
+
     return redirect(response_url)
 
 
@@ -86,6 +80,7 @@ def pdf():
     """
     render_pdf(sample_payload_obj, './output.pdf')
     upload_file('./output.pdf')
+
     return send_file('./output.pdf', attachment_filename='output.pdf')
 
 
@@ -95,4 +90,5 @@ def api():
     payload = request.json
     render_pdf(payload, './output.pdf')
     response_url = upload_file('./output.pdf')
+
     return {'url': response_url}

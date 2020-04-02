@@ -92,7 +92,7 @@
     <td colspan="2">{{ customer.name }}<br><br>Получатель</td>
   </tr>
 </table>
-<h1>Счет на оплату № {{ order.number }} от {{ order.created|super_filter }}</h1>
+<h1>Счет на оплату № {{ order.number }} от {{ order.created }}</h1>
 <h2>
   В платежном поручении в назначении платежа указывать: «Оплата по Договор
   поставки No {{ order.number }} от {{ order.created }}г.»!
@@ -147,8 +147,8 @@
 </div>
 <div>
   <p>
-    Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {{ products|sum(attribute='price') }}<br/>
-    <strong>{{ summa_text }}</strong>
+    Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {{ products|sum(attribute='price') }} руб.<br/>
+    <strong>{{ products|sum(attribute='price')|num2words|capitalize }} рублей</strong>
   </p>
 </div>
 <hr/>
