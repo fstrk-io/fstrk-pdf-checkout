@@ -1,10 +1,18 @@
 import json
+from datetime import datetime
 
 from flask import Flask, render_template, request, send_file, redirect
-
 from renderer import render_pdf, upload_file
 
 app = Flask(__name__)
+
+
+@app.template_filter('dt_format')
+def dt_format(value, format='%d-%m-%Y'):
+    """
+    Фильтр: форматирование даты
+    """
+    return value.strptime(format)
 
 
 sample_payload_obj = {
@@ -88,4 +96,3 @@ def api():
     render_pdf(payload, './output.pdf')
     response_url = upload_file('./output.pdf')
     return {'url': response_url}
-
