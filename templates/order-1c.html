@@ -83,43 +83,37 @@
   <h1>Счет на оплату № {{ order.number }} от {{ order.created|russian_date }}г.</h1>
   <h2>
     В платежном поручении в назначении платежа указывать: «Оплата по Договор
-    поставки No {{ order.number }} от {{ order.created|russian_date }}г.»!
+    поставки № {{ customer.contract.number }} от {{ customer.contract.from_date }}г.»!
   </h2>
   <hr/>
   <table class="no-border">
     <tr>
       <td>Поставщик:</td>
       <td class="bold">
-        ИНН {{ shure.inn }} КПП {{ shure.kpp }} {{ shure.name }}
-        {% if shure.address %}, {{ shure.address }}{% endif %}
-        {% if shure.phone %}, тел.: {{ shure.phone }}{% endif %}
-        {% if shure.email %}, e-mail: {{ shure.email }}{% endif %}
+        ИНН {{ shure.inn }} КПП {{ shure.kpp }} {{ shure.name }}{% if shure.address %}, {{ shure.address }}{% endif %}{% if shure.phone %}, тел.: {{ shure.phone }}{% endif %}{% if shure.email %}, e-mail: {{ shure.email }}{% endif %}
       </td>
     </tr>
     <tr>
       <td>Покупатель:</td>
       <td class="bold">
-        ИНН {{ customer.inn }} КПП {{ customer.kpp }} {{ customer.name }}
-        {% if customer.address %}, {{ customer.address }}{% endif %}
-        {% if customer.phone %}, тел.: {{ customer.phone }}{% endif %}
-        {% if customer.email %}, e-mail: {{ customer.email }}{% endif %}
+        ИНН {{ customer.inn }} КПП {{ customer.kpp }} {{ customer.name }}{% if customer.address %}, {{ customer.address }}{% endif %}{% if customer.phone %}, тел.: {{ customer.phone }}{% endif %}{% if customer.email %}, e-mail: {{ customer.email }}{% endif %}
       </td>
     </tr>
     <tr>
       <td>Основание:</td>
-      <td class="bold">Договор поставки No {{ order.number }} от {{ order.created|russian_date }}</td>
+      <td class="bold">Договор поставки № {{ customer.contract.number }} от {{ customer.contract.from_date }}г.</td>
     </tr>
   </table>
   <table>
     <thead>
     <tr>
-      <th>№</th>
-      <th>Код</th>
-      <th>Товар</th>
-      <th>Кол-во</th>
-      <th>Ед.</th>
-      <th>Цена</th>
-      <th>Сумма</th>
+      <th class="pull-center">№</th>
+      <th class="pull-center">Код</th>
+      <th class="pull-center">Товар</th>
+      <th class="pull-center">Кол-во</th>
+      <th class="pull-center">Ед.</th>
+      <th class="pull-center">Цена</th>
+      <th class="pull-center">Сумма</th>
     </tr>
     </thead>
     <tbody>
@@ -127,7 +121,7 @@
     <tr>
       <td class="pull-center">{{ loop.index }}</td>
       <td>{{ object.detail.name }}</td>
-      <td>{{ object.detail.detail }}</td>
+      <td>{% if object.detail.detail %}{{ object.detail.detail }}</td>
       <td class="pull-right">{{ object.quantity }}</td>
       <td>шт.</td>
       <td class="pull-right">{{ (object.price / object.quantity)|russian_price }}</td>
