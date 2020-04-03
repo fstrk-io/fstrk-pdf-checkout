@@ -82,8 +82,7 @@
   </table>
   <h1>Счет на оплату № {{ order.number }} от {{ order.created|russian_date }}г.</h1>
   <h2>
-    В платежном поручении в назначении платежа указывать: «Оплата по Договор
-    поставки № {{ customer.contract.number }} от {{ customer.contract.from_date }}г.»!
+    В платежном поручении в назначении платежа указывать: «Оплата по Договор поставки № {{ customer.contract.number }} от {{ customer.contract.from_date }}г.»!
   </h2>
   <hr/>
   <table class="no-border">
@@ -121,7 +120,7 @@
     <tr>
       <td class="pull-center">{{ loop.index }}</td>
       <td>{{ object.detail.name }}</td>
-      <td>{% if object.detail.detail %}{{ object.detail.detail }}</td>
+      <td>{% if object.detail.detail %}{{ object.detail.detail }}{% else %}&mdash;&mdash;&mdash;{% endif %}</td>
       <td class="pull-right">{{ object.quantity }}</td>
       <td>шт.</td>
       <td class="pull-right">{{ (object.price / object.quantity)|russian_price }}</td>
