@@ -1,8 +1,9 @@
+import locale
+import dateutil
 import logging
 import boto3
 import os
 
-import dateutil
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from datetime import datetime
 from uuid import uuid4
@@ -11,7 +12,6 @@ from pytz import timezone
 from dateutil import tz
 from botocore.exceptions import ClientError
 from num2words import num2words
-import locale
 
 
 locale.setlocale(locale.LC_TIME, "ru_RU.utf8")
@@ -26,16 +26,15 @@ def num2words_converter(value):
     return num2words(value, lang="ru", to="currency", currency='RUB')
 
 
-
 def russian_date(value):
-    """ Принимат строку с датой в ISO формате и превращает в русскую дату """
+    """ Принимает строку с датой в ISO формате и превращает в русскую дату """
     return dateutil.parser.parse(value).strftime("%d %B %Y")
 
 
 def russian_price(value: float):
     """
     Преобразует число в строку с разделителями между тысячными
-    и округляет до 2 знков после запятой
+    и округляет до 2 знаков после запятой
 
     3242321.123    -> 3 242 321.123
     """

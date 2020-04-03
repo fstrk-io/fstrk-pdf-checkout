@@ -18,29 +18,40 @@ BasicAuth(app)
 
 sample_payload_obj = {
     "customer": {
+        "name": "ООО \"Рога и копыта\"",
+        "inn": "78000000",
+        "kpp": "41000000",
+        "address": "Ярославль, ул. Строителей, д. 9",
+        "phone": "+7 (900) 123-4567",
+        "email": "mail@customer.ru",
+    },
+    "shure": {
+        "name": "Общество с ограниченной ответственностью \"Шур Ар-И-И\"",
+        "inn": "77123456",
+        "kpp": "40001234",
+        "address": "Москва, ул. Ленина, д. 1",
+        "phone": "+7 (900) 765-4321",
+        "email": "mail@shure.ru",
         "bank": {
             "name": "ПАО СБЕРБАНК",
             "bik": "7700000",
-            "kor_schet": "3001000001000",
+            "payment_account": "4212300004450",
+            "correspondent_account": "3001000001000",
         },
-        "inn": "77123456",
-        "kpp": "41000000",
-        "rasch_schet": "4212300004450",
-        "address": "Москва, ул. Строителей, 9",
-        "name": "ООО \"Рога и копыта\"",
-    },
-    "shure": {
-        "rukovoditel": {
+        "director": {
             "name": "Иванов И.И.",
-            "doverennost": "доверенность № 123 от 20.02.2020",
+            "proxy": "Доверенность № 123 от 20.02.2020",
         },
-        "buhgalter": {
+        "accountant": {
             "name": "Иванов И.И.",
-            "doverennost": "доверенность № 123 от 20.02.2020",
+            "proxy": "Доверенность № 123 от 20.02.2020",
         },
-        "manager": {"name": "Иванов И.И.", "doverennost": None},
-        "rekveziti": "ИНН 7100000 КПП 8299999, Москва, ул. Ленина, д. 1",
+        "manager": {
+            "name": "Иванов И.И.",
+            "proxy": None,
+        },
     },
+    "order": {"number": "123", "created": "2020-04-03T10:15:35.597939"},
     "products": [
         {
             "key": "dd35f031-5861-4d4d-9f13-6420afcfdb7e",
@@ -60,7 +71,6 @@ sample_payload_obj = {
             "quantity": 1,
         },
     ],
-    "order": {"number": "123", "created": "2020-04-03T10:15:35.597939"},
 }
 
 
