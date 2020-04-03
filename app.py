@@ -1,10 +1,20 @@
 import json
+import os
 
 from datetime import datetime
 from flask import Flask, render_template, request, send_file, redirect
 from renderer import render_pdf, upload_file
+from flask_basicauth import BasicAuth
+
 
 app = Flask(__name__)
+
+app.config['BASIC_AUTH_USERNAME'] = os.getenv("BASIC_AUTH_USERNAME")
+app.config['BASIC_AUTH_PASSWORD'] = os.getenv("BASIC_AUTH_PASSWORD")
+app.config['BASIC_AUTH_FORCE'] = True
+
+BasicAuth(app)
+
 
 sample_payload_obj = {
     "customer": {

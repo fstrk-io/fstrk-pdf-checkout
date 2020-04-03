@@ -132,8 +132,8 @@
     <td>{{ object.detail.detail }}</td>
     <td class="pull-right">{{ object.quantity }}</td>
     <td>шт.</td>
-    <td class="pull-right">{{ '%0.2f'| format((object.price / object.quantity)|float) }}</td>
-    <td class="pull-right">{{ '%0.2f'| format(object.price|float) }}</td>
+    <td class="pull-right">{{ (object.price / object.quantity)|russian_price }}</td>
+    <td class="pull-right">{{ object.price|russian_price }}</td>
   </tr>
   {% endfor %}
   </tbody>
@@ -141,8 +141,8 @@
 <hr/>
 
 {% set total_sum = products|sum(attribute='price') %}
-{% set total_sum_rounded = '%0.2f'| format(total_sum|float) %}%}
-{% set nds_rounded = '%0.2f'| format((total_sum*0.2)|float) %}
+{% set total_sum_rounded = total_sum|russian_price %}
+{% set nds_rounded = (total_sum*0.2)|russian_price %}
 
 
 <div class="bold pull-right">

@@ -9,9 +9,11 @@ RUN echo "Europe/Moscow" > /etc/timezone && \
         echo 'LANG="ru_RU.UTF-8"'>/etc/default/locale && \
         dpkg-reconfigure --frontend=noninteractive locales && \
         update-locale LANG=ru_RU.UTF-8
-RUN pip install poetry
 
+RUN pip install poetry
 WORKDIR /app
 COPY poetry.lock pyproject.toml /app/
-
 RUN poetry config virtualenvs.create false && poetry install --no-dev --no-interaction --no-ansi
+
+COPY . /app
+CMD gunicorn -b 0.0.0.0:5000 app:app

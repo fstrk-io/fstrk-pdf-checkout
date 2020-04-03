@@ -29,11 +29,22 @@ def num2words_converter(value):
 
 def russian_date(value):
     """ Принимат строку с датой в ISO формате и превращает в русскую дату """
-    return dateutil.parser.parse(value).strftime("%d %b %Y")
+    return dateutil.parser.parse(value).strftime("%d %B %Y")
+
+
+def russian_price(value: float):
+    """
+    Преобразует число в строку с разделителями между тысячными
+    и округляет до 2 знков после запятой
+
+    3242321.123    -> 3 242 321.123
+    """
+    return '{:,.2f}'.format(value).replace(',', ' ')
 
 
 env.filters["num2words"] = num2words_converter
 env.filters["russian_date"] = russian_date
+env.filters["russian_price"] = russian_price
 
 
 def render_pdf(params: dict, out_file):
