@@ -2,6 +2,7 @@ import logging
 import boto3
 import os
 
+import dateutil
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from datetime import datetime
 from uuid import uuid4
@@ -10,6 +11,10 @@ from pytz import timezone
 from dateutil import tz
 from botocore.exceptions import ClientError
 from num2words import num2words
+import locale
+
+
+locale.setlocale(locale.LC_TIME, "ru_RU.utf8")
 
 env = Environment(
     loader=FileSystemLoader("./templates"),
@@ -18,12 +23,17 @@ env = Environment(
 
 
 def num2words_converter(value):
-    # TODO https://stackoverflow.com/questions/43318146/python-library-to-amount-to-word-for-check
-    # TODO Должно выводиться: Сто двадцать три рубля 82 коп.
-    return num2words(value, lang="ru", to="currency")
+    return num2words(value, lang="ru", to="currency", currency='RUB')
+
+
+
+def russian_date(value):
+    """ Принимат строку с датой в ISO формате и превращает в русскую дату """
+    return dateutil.parser.parse(value).strftime("%d %b %Y")
 
 
 env.filters["num2words"] = num2words_converter
+env.filters["russian_date"] = russian_date
 
 
 def render_pdf(params: dict, out_file):

@@ -14,6 +14,7 @@ black = "^19.10b0"
 flask = "^1.1.1"
 boto3 = "^1.12.34"
 pytz = "^2019.3"
+python-dateutil = "^2.8.1"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5"

@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Счет на оплату № {{ order.number }} от {{ order.created }}</title>
+  <title>Счет на оплату № {{ order.number }} от {{ order.created|russian_date }}</title>
   <style>
     * {
       font-family: Arial, Helvetica, sans-serif;
@@ -92,10 +92,10 @@
     <td colspan="2">{{ customer.name }}<br><br>Получатель</td>
   </tr>
 </table>
-<h1>Счет на оплату № {{ order.number }} от {{ order.created }}</h1>
+<h1>Счет на оплату № {{ order.number }} от {{ order.created|russian_date }}</h1>
 <h2>
   В платежном поручении в назначении платежа указывать: «Оплата по Договор
-  поставки No {{ order.number }} от {{ order.created }}г.»!
+  поставки No {{ order.number }} от {{ order.created|russian_date }}г.»!
 </h2>
 <hr/>
 <table class="no-border">
@@ -109,7 +109,7 @@
   </tr>
   <tr>
     <td>Основание:</td>
-    <td class="bold">Договор поставки No {{ order.number }} от {{ order.created }}г.</td>
+    <td class="bold">Договор поставки No {{ order.number }} от {{ order.created|russian_date }}</td>
   </tr>
 </table>
 <table>
@@ -132,23 +132,29 @@
     <td>{{ object.detail.detail }}</td>
     <td class="pull-right">{{ object.quantity }}</td>
     <td>шт.</td>
-    <td class="pull-right">{{ (object.price / object.quantity)|round|int }}</td>
-    <td class="pull-right">{{ object.price }}</td>
+    <td class="pull-right">{{ '%0.2f'| format((object.price / object.quantity)|float) }}</td>
+    <td class="pull-right">{{ '%0.2f'| format(object.price|float) }}</td>
   </tr>
   {% endfor %}
   </tbody>
 </table>
 <hr/>
+
+{% set total_sum = products|sum(attribute='price') %}
+{% set total_sum_rounded = '%0.2f'| format(total_sum|float) %}%}
+{% set nds_rounded = '%0.2f'| format((total_sum*0.2)|float) %}
+
+
 <div class="bold pull-right">
   <p>
-    Итого: {{ products|sum(attribute='price') }}<br/>
-    В том числе НДС: {{ products|sum(attribute='price')|round|int }}
+    Итого: {{ total_sum_rounded }} руб.<br/>
+    В том числе НДС: {{ nds_rounded }} руб.
   </p>
 </div>
 <div>
   <p>
-    Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {{ products|sum(attribute='price') }} руб.<br/>
-    <strong>{{ products|sum(attribute='price')|num2words|capitalize }} рублей</strong>
+    Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {{ total_sum_rounded }} руб.<br/>
+    <strong>{{ total_sum|num2words|capitalize }} </strong>
   </p>
 </div>
 <hr/>

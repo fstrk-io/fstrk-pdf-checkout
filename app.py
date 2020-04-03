@@ -50,11 +50,11 @@ sample_payload_obj = {
             "quantity": 1,
         },
     ],
-    "order": {"number": "123", "created": f"{datetime.now():%d %B %Y}"},
+    "order": {"number": "123", "created": "2020-04-03T10:15:35.597939"},
 }
 
 
-@app.route("/", methods=["GET"])
+@app.route("/", methods=["GET", 'POST'])
 def help():
     """
     Форма генерации счета для дебага. Принимает POST-запрос с пейлоадом, отдает PDF
