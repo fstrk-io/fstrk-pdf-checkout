@@ -29,7 +29,7 @@ import requests
 
 
 res = requests.post(
-    'http://0.0.0.0:5000/api/generate/',
+    'https://domain.com/api/generate/',
     json={
         "customer": ...,
         "shure": ...,
@@ -37,7 +37,9 @@ res = requests.post(
             ...
         ],
         "order": ...,
-    }
+    },
+    auth=requests.HTTPBasicAuth('login', 'password')
+
 )
 
 
