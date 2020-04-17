@@ -48,6 +48,7 @@ def russian_price(value: float):
 
 env.filters["num2words"] = num2words_converter
 env.filters["russian_date"] = russian_date
+env.filters["short_date"] = short_date
 env.filters["russian_price"] = russian_price
 
 

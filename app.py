@@ -26,7 +26,7 @@ sample_payload_obj = {
         "email": "mail@customer.ru",
         "contract": {
             "number": "Р16-12/18",
-            "from_date": "12.12.2018",
+            "from_date": "2020-04-03T10:15:35.597939",
         },
     },
     "shure": {
