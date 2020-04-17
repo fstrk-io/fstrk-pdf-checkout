@@ -31,6 +31,11 @@ def russian_date(value):
     return dateutil.parser.parse(value).strftime("%d %B %Y")
 
 
+def short_date(value):
+    """ Принимает строку с датой в ISO формате и превращает в короткую дату """
+    return dateutil.parser.parse(value).strftime("%d.%m.%Y")
+
+
 def russian_price(value: float):
     """
     Преобразует число в строку с разделителями между тысячными

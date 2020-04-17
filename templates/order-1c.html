@@ -82,7 +82,7 @@
   </table>
   <h1>Счет на оплату № {{ order.number }} от {{ order.created|russian_date }}г.</h1>
   <h2>
-    В платежном поручении в назначении платежа указывать: «Оплата по Договор поставки № {{ customer.contract.number|default("нет", true) }} от {{ customer.contract.from_date|russian_date|default("нет", true) }}г.»!
+    В платежном поручении в назначении платежа указывать: «Оплата по Договор поставки № {% if customer.contract.number %}{{ customer.contract.number }} от {{ customer.contract.from_date|short_date }}г.{% else %}нет номера{% endif %}»!
   </h2>
   <hr/>
   <table class="no-border">
@@ -100,7 +100,7 @@
     </tr>
     <tr>
       <td>Основание:</td>
-      <td class="bold">Договор поставки № {{ customer.contract.number|default("нет", true) }} от {{ customer.contract.from_date|russian_date|default("нет", true) }}г.</td>
+      <td class="bold">Договор поставки № {% if customer.contract.number %}{{ customer.contract.number }} от {{ customer.contract.from_date|short_date }}г.{% else %}нет номера{% endif %}</td>
     </tr>
   </table>
   <table>
