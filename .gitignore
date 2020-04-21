@@ -13,3 +13,4 @@ __pycache__/
 
 # Output PDF
 *.pdf
+.env
