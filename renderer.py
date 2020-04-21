@@ -1,4 +1,6 @@
 import locale
+from typing import Optional
+
 import dateutil
 import logging
 import boto3
@@ -23,7 +25,7 @@ env = Environment(
 
 
 def num2words_converter(value):
-    return num2words(value, lang="ru", to="currency", currency='RUB')
+    return num2words(value, lang="ru", to="currency", currency="RUB")
 
 
 def russian_date(value):
@@ -43,7 +45,7 @@ def russian_price(value: float):
 
     3242321.123    -> 3 242 321.123
     """
-    return '{:,.2f}'.format(value).replace(',', ' ')
+    return "{:,.2f}".format(value).replace(",", " ")
 
 
 env.filters["num2words"] = num2words_converter
@@ -68,7 +70,7 @@ def _get_current_time_str():
     return local_str
 
 
-def upload_file(file_name: str) -> str:
+def upload_file(file_name: str) -> Optional[str]:
     """ Загрузить файл на амазон, вернуть линк с уникальным именем """
     current_time_str = _get_current_time_str()
     path_name = f"1c-orders/{uuid4()}-{current_time_str}.pdf"
@@ -78,7 +80,12 @@ def upload_file(file_name: str) -> str:
     s3_client = boto3.client("s3")
 
     try:
-        s3_client.upload_file(file_name, bucket_name, path_name)
+        s3_client.upload_file(
+            file_name,
+            bucket_name,
+            path_name,
+            ExtraArgs={"ContentType": "application/pdf"},
+        )
     except ClientError as e:
         logging.error(e)
         return None
