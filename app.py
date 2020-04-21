@@ -112,7 +112,10 @@ def pdf():
 def api():
     """ Продакшен-ручка. Принимает данные в JSON, возвращает ссылку в JSON """
     payload = request.json
-    render_pdf(payload, './output.pdf')
-    response_url = upload_file('./output.pdf')
+    try:
+        render_pdf(payload, './output.pdf')
+        response_url = upload_file('./output.pdf')
+    except Exception as e:
+        return {'error': str(e)}, 500
 
     return {'url': response_url}
