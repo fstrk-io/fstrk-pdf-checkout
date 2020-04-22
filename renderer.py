@@ -38,6 +38,10 @@ def short_date(value):
     return dateutil.parser.parse(value).strftime("%d.%m.%Y")
 
 
+def total_for_all_products(products: list) -> float:
+    return sum(product['price'] * product['quantity'] for product in products)
+
+
 def russian_price(value: float):
     """
     Преобразует число в строку с разделителями между тысячными
@@ -52,6 +56,7 @@ env.filters["num2words"] = num2words_converter
 env.filters["russian_date"] = russian_date
 env.filters["short_date"] = short_date
 env.filters["russian_price"] = russian_price
+env.filters["total_for_all_products"] = total_for_all_products
 
 
 def render_pdf(params: dict, out_file):
