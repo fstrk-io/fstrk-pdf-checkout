@@ -123,8 +123,8 @@
       <td>{% if object.detail.detail %}{{ object.detail.detail }}{% else %}&mdash;&mdash;&mdash;{% endif %}</td>
       <td class="pull-right">{{ object.quantity }}</td>
       <td>шт.</td>
-      <td class="pull-right">{{ (object.price / object.quantity)|russian_price }}</td>
       <td class="pull-right">{{ object.price|russian_price }}</td>
+      <td class="pull-right">{{ (object.price * object.quantity)|russian_price }}</td>
     </tr>
     {% endfor %}
     </tbody>
