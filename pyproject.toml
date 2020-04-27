@@ -17,6 +17,7 @@ pytz = "^2019.3"
 python-dateutil = "^2.8.1"
 gunicorn = "^20.0.4"
 Flask-BasicAuth = "^0.2.0"
+requests = "^2.23.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5"

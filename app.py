@@ -3,6 +3,8 @@ import os
 
 from datetime import datetime
 from flask import Flask, render_template, request, send_file, redirect
+
+from detect_image_size import detect
 from renderer import render_pdf, upload_file
 from flask_basicauth import BasicAuth
 
@@ -119,3 +121,17 @@ def api():
         return {'error': str(e)}, 500
 
     return {'url': response_url}
+
+
+@app.route("/api/detect_image_size/", methods=["POST"])
+def detect_image_size_handler():
+    """Ручка не для Shure, а для МЫВМЕСТЕ: определяет ширину и высоту картинки по URL"""
+    try:
+        size = detect(request.json['url'])
+    except Exception as e:
+        return {'error': str(e)}, 500
+
+    return {
+        'width': size.width,
+        'height': size.height,
+    }
