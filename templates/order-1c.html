@@ -132,7 +132,7 @@
   <hr/>
   {% set total_sum = products|total_for_all_products %}
   {% set total_sum_rounded = total_sum|russian_price %}
-  {% set nds_rounded = (total_sum*0.2)|russian_price %}
+  {% set nds_rounded = ((total_sum*0.2)/2)|russian_price %}
   <div class="bold pull-right">
     <p>
       Итого: {{ total_sum_rounded }} руб.<br/>
