@@ -119,8 +119,8 @@
     {% for object in products %}
     <tr>
       <td class="pull-center">{{ loop.index }}</td>
+      <td>{{ object.code }}</td>
       <td>{{ object.title }}</td>
-      <td>{% if object.field_html %}{{ object.field_html }}{% else %}&mdash;&mdash;&mdash;{% endif %}</td>
       <td class="pull-right">{{ object.quantity }}</td>
       <td>шт.</td>
       <td class="pull-right">{% if object.discount_price %}{{ object.discount_price|russian_price }}{% else %}{{ object.price|russian_price }}{% endif %}</td>
