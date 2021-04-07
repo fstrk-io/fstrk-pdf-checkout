@@ -142,7 +142,7 @@
   <div class="bold pull-right">
     <p>
       Итого: {{ total_sum_rounded }} руб.<br/>
-      {% if discount_price and discount_price|russian_price != total_sum_rounded  %}Итого с учетом скидки: {{ discount_sum_rounded }} руб.<br/>{% endif %}
+      {% if discount_sum_rounded  %}Итого с учетом скидки: {{ discount_sum_rounded }} руб.<br/>{% endif %}
       В том числе НДС: {{ nds_rounded }} руб.
     </p>
   </div>
