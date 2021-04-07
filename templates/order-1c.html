@@ -134,22 +134,22 @@
   {% set total_sum_rounded = total_sum|russian_price %}
   
   {% if not discount_price %}
-      {% set nds_rounded = ((total_sum*0.2)/2)|russian_price %}
+      {% set nds_rounded = ((total_sum*0.2)/1.2)|russian_price %}
   {% else %}
       {% set discount_sum_rounded = discount_price|russian_price %}
-      {% set nds_rounded = ((discount_price*0.2)/2)|russian_price %}
+      {% set nds_rounded = ((discount_price*0.2)/1.2)|russian_price %}
   {% endif %}
   <div class="bold pull-right">
     <p>
       Итого: {{ total_sum_rounded }} руб.<br/>
-      {% if discount_price %}Итого с учетом скидки: {{ total_sum_rounded }} руб.<br/>{% endif %}
+      {% if discount_price %}Итого с учетом скидки: {{ discount_sum_rounded }} руб.<br/>{% endif %}
       В том числе НДС: {{ nds_rounded }} руб.
     </p>
   </div>
   <div>
     <p>
-      Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {{ total_sum_rounded }} руб.<br/>
-      <strong>{{ total_sum|num2words|capitalize }}</strong>
+      Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {% if discount_price %}{{ discount_sum_rounded }}{% else %}{{ total_sum_rounded }}{% endif%} руб.<br/>
+      <strong>{% if discount_price %}{{ discount_sum_rounded|num2words|capitalize }}{% else %}{{ total_sum_rounded|num2words|capitalize }}{% endif%}</strong>
     </p>
   </div>
   <div>
