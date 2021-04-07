@@ -118,6 +118,7 @@ def api():
         render_pdf(payload, './output.pdf')
         response_url = upload_file('./output.pdf')
     except Exception as e:
+        app.log_exception(exc_info=e)
         return {'error': str(e)}, 500
 
     return {'url': response_url}
