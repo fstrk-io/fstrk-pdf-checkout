@@ -132,10 +132,16 @@
   <hr/>
   {% set total_sum = products|total_for_all_products %}
   {% set total_sum_rounded = total_sum|russian_price %}
+  {% set discount_sum_rounded = discount_sum|russian_price %}
+  {% if not discount_sum %}
   {% set nds_rounded = ((total_sum*0.2)/2)|russian_price %}
+  {% else %}
+  {% set nds_rounded = ((discount_sum*0.2)/2)|russian_price %}
+  {% endif %}
   <div class="bold pull-right">
     <p>
       Итого: {{ total_sum_rounded }} руб.<br/>
+      {% if discount_sum %}Итого с учетом скидки: {{ total_sum_rounded }} руб.<br/>{% endif %}
       В том числе НДС: {{ nds_rounded }} руб.
     </p>
   </div>
