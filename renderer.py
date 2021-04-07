@@ -40,7 +40,7 @@ def short_date(value):
 
 def total_for_all_products(products: list) -> float:
     return sum(
-        (product["price"] if product["discount_price"] else product["price"])
+        (product["discount_price"] if product["discount_price"] else product["price"])
         * product["quantity"]
         for product in products
     )
