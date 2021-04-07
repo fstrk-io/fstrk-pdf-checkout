@@ -132,7 +132,7 @@
   <hr/>
   {% set total_sum = products|total_for_all_products %}
   {% set total_sum_rounded = total_sum|russian_price %}
-  
+
   {% if discount_price and discount_price|russian_price == total_sum_rounded %}
       {% set nds_rounded = ((total_sum*0.2)/1.2)|russian_price %}
   {% else %}
@@ -148,8 +148,8 @@
   </div>
   <div>
     <p>
-      Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {% if discount_price %}{{ discount_sum_rounded }}{% else %}{{ total_sum_rounded }}{% endif%} руб.<br/>
-      <strong>{% if discount_price %}{{ discount_sum_rounded|num2words|capitalize }}{% else %}{{ total_sum_rounded|num2words|capitalize }}{% endif%}</strong>
+      Всего наименований {{ products|sum(attribute='quantity') }}, на сумму {% if discount_price and discount_price|russian_price != total_sum_rounded  %}{{ discount_sum_rounded }}{% else %}{{ total_sum_rounded }}{% endif%} руб.<br/>
+      <strong>{% if discount_price and discount_price|russian_price != total_sum_rounded  %}{{ discount_sum_rounded|num2words|capitalize }}{% else %}{{ total_sum_rounded|num2words|capitalize }}{% endif%}</strong>
     </p>
   </div>
   <div>
