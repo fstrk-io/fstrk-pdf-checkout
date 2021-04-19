@@ -10,14 +10,25 @@ from flask_basicauth import BasicAuth
 
 app = Flask(__name__)
 
-app.config['BASIC_AUTH_USERNAME'] = os.getenv("BASIC_AUTH_USERNAME")
-app.config['BASIC_AUTH_PASSWORD'] = os.getenv("BASIC_AUTH_PASSWORD")
-app.config['BASIC_AUTH_FORCE'] = True
+app.config["BASIC_AUTH_USERNAME"] = os.getenv("BASIC_AUTH_USERNAME")
+app.config["BASIC_AUTH_PASSWORD"] = os.getenv("BASIC_AUTH_PASSWORD")
+app.config["BASIC_AUTH_FORCE"] = True
 
 BasicAuth(app)
 
 sample_payload_obj = {
-    "customer": customer,
+    "customer": {
+        "inn": "___________",
+        "kpp": "___________",
+        "name": "___________",
+        "email": "test@test.ru",
+        "phone": "+79312980954",
+        "address": "Ленина, 1",
+        "contract": {
+            "number": "___________",
+            "from_date": "2020-04-03T21:44:38.135914",
+        },
+    },
     "shure": {
         "inn": "123",
         "kpp": "456",
@@ -66,20 +77,18 @@ sample_payload_obj = {
 }
 
 
-@app.route("/", methods=["GET", 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def help():
     """
     Форма генерации счета для дебага. Принимает POST-запрос с пейлоадом, отдает PDF
     """
-    if request.method == 'GET':
-        payload_str = json.dumps(
-            sample_payload_obj, indent=4, ensure_ascii=False
-        )
-        return render_template('sample_payload.html', sample_payload_obj=payload_str)
+    if request.method == "GET":
+        payload_str = json.dumps(sample_payload_obj, indent=4, ensure_ascii=False)
+        return render_template("sample_payload.html", sample_payload_obj=payload_str)
 
-    payload = json.loads(request.form['payload'])
-    render_pdf(payload, './output.pdf')
-    response_url = upload_file('./output.pdf')
+    payload = json.loads(request.form["payload"])
+    render_pdf(payload, "./output.pdf")
+    response_url = upload_file("./output.pdf")
 
     return redirect(response_url)
 
@@ -90,10 +99,10 @@ def pdf():
     Демо-версия PDF отчеа, открывается прямо в браузере,
     это удобнее, чем каждый раз скачивать
     """
-    render_pdf(sample_payload_obj, './output.pdf')
-    upload_file('./output.pdf')
+    render_pdf(sample_payload_obj, "./output.pdf")
+    upload_file("./output.pdf")
 
-    return send_file('./output.pdf', attachment_filename='output.pdf')
+    return send_file("./output.pdf", attachment_filename="output.pdf")
 
 
 @app.route("/api/generate/", methods=["POST"])
@@ -101,24 +110,24 @@ def api():
     """ Продакшен-ручка. Принимает данные в JSON, возвращает ссылку в JSON """
     payload = request.json
     try:
-        render_pdf(payload, './output.pdf')
-        response_url = upload_file('./output.pdf')
+        render_pdf(payload, "./output.pdf")
+        response_url = upload_file("./output.pdf")
     except Exception as e:
         app.log_exception(exc_info=e)
-        return {'error': str(e)}, 500
+        return {"error": str(e)}, 500
 
-    return {'url': response_url}
+    return {"url": response_url}
 
 
 @app.route("/api/detect_image_size/", methods=["POST"])
 def detect_image_size_handler():
     """Ручка не для Shure, а для МЫВМЕСТЕ: определяет ширину и высоту картинки по URL"""
     try:
-        size = detect(request.json['url'])
+        size = detect(request.json["url"])
     except Exception as e:
-        return {'error': str(e)}, 500
+        return {"error": str(e)}, 500
 
     return {
-        'width': size.width,
-        'height': size.height,
+        "width": size.width,
+        "height": size.height,
     }
