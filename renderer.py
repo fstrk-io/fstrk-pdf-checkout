@@ -25,6 +25,12 @@ env = Environment(
 
 
 def num2words_converter(value):
+    """
+    если в переданной строке есть пробел (11 210.50) - либа ломается,
+    нужно это обрабатывать
+    """
+    if isinstance(value, str):
+        value = value.replace(' ', '')
     return num2words(value, lang="ru", to="currency", currency="RUB")
 
 
