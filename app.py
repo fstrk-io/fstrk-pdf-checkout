@@ -8,7 +8,6 @@ from detect_image_size import detect
 from renderer import render_pdf, upload_file
 from flask_basicauth import BasicAuth
 
-
 app = Flask(__name__)
 
 app.config['BASIC_AUTH_USERNAME'] = os.getenv("BASIC_AUTH_USERNAME")
@@ -17,66 +16,53 @@ app.config['BASIC_AUTH_FORCE'] = True
 
 BasicAuth(app)
 
-
 sample_payload_obj = {
-    "customer": {
-        "name": "ООО \"Рога и копыта\"",
-        "inn": "78000000",
-        "kpp": "41000000",
-        "address": "Ярославль, ул. Строителей, д. 9",
-        "phone": "+7 (900) 123-4567",
-        "email": "mail@customer.ru",
-        "contract": {
-            "number": "Р16-12/18",
-            "from_date": "2020-04-03T10:15:35.597939",
-        },
-    },
+    "customer": customer,
     "shure": {
-        "name": "Общество с ограниченной ответственностью \"Шур Ар-И-И\"",
-        "inn": "77123456",
-        "kpp": "40001234",
-        "address": "Москва, ул. Ленина, д. 1",
-        "phone": "+7 (900) 765-4321",
-        "email": "mail@shure.ru",
+        "inn": "123",
+        "kpp": "456",
         "bank": {
-            "name": "ПАО СБЕРБАНК",
-            "bik": "7700000",
-            "payment_account": "4212300004450",
-            "correspondent_account": "3001000001000",
+            "bik": "044030790",
+            "name": "ПАО «БАНК «САНКТ-ПЕТЕРБУРГ»",
+            "payment_account": "123",
+            "correspondent_account": "456",
         },
+        "name": "ООО «ЕвроКомпозит» (EuroComposite LLC)",
+        "email": "info@shure.ru",
+        "phone": "тел.(812) 981-48-31",
+        "address": "191024, Россия, Санкт-Петербург, Невский проспект, д. 170",
+        "manager": {"name": "Сосновский Илья Сергеевич", "proxy": None},
         "director": {
-            "name": "Иванов И.И.",
-            "proxy": "Доверенность № 123 от 20.02.2020",
+            "name": "Сосновский Илья Сергеевич",
+            "proxy": "На основании Устава",
         },
         "accountant": {
-            "name": "Иванов И.И.",
-            "proxy": "Доверенность № 123 от 20.02.2020",
-        },
-        "manager": {
-            "name": "Иванов И.И.",
-            "proxy": None,
+            "name": "Сосновский Илья Сергеевич",
+            "proxy": "На основании Приказа №1 от 02.08.2017 г.",
         },
     },
-    "order": {"number": "123", "created": "2020-04-03T10:15:35.597939"},
     "products": [
         {
-            "key": "dd35f031-5861-4d4d-9f13-6420afcfdb7e",
-            "price": 76024.2,
-            "detail": {
-                "name": "AD2/K9B=-G56",
-                "rate": "78,72",
-                "image": "https://flex.ftrcdn.com/tickets/ad2-k9b-g56-vg1lb1y-dfv7sqs_oMancyf.png",
-                "detail": "Ручной передатчик с капсюлем KSM9, цвет чёрный",
-            },
-            "quantity": 3,
-        },
-        {
-            "key": "5fd5f040-1c75-4a84-abea-ba0c89f74e10",
-            "price": 10291.3,
-            "detail": {"name": "BETA 52A"},
+            "code": 3530,
+            "guid": "e59cc7bd-f193-4131-b4db-24e7637981ee",
+            "image": "https://flex.ftrcdn.com/tickets/blx14re-sm35-m17-0sdr6a0.png",
+            "price": 41930,
+            "title": "BLX14RE/SM35-M17",
+            "category": "66ca4151-f81b-4dc8-8b64-ab708a6f8adf",
             "quantity": 1,
-        },
+            "description": "Головной кардиоидный микрофон с рэковым аналоговым приёмником.",
+            "field_html_2": "",
+            "product_type": "f0abe3eb-e29f-4db8-8273-9ed655d1acb3",
+            "price_comment": None,
+            "discount_price": 41930,
+            "field_string_3": "4-5 недель",
+            "field_multichoice": [],
+            "field_multichoice_5": ["Вокальный"],
+            "field_multichoice_6": [],
+        }
     ],
+    "order": {"number": "348ш", "created": "2021-04-19T10:27:01.444955"},
+    "discount_price": 41930,
 }
 
 
