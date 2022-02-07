@@ -80,9 +80,9 @@
       <td colspan="2">{{ shure.name }}<br><br>Получатель</td>
     </tr>
   </table>
-  <h1>Счет на оплату № {{ order.number }} от {{ order.created|russian_date }}г.</h1>
+  <h1>Счет на оплату № {{ order.bitrix_id }} от {{ order.created|russian_date }}г.</h1>
   <h2>
-    В платежном поручении в назначении платежа указывать: «Оплата по Договор поставки № {% if customer.contract.number %}{{ customer.contract.number }} от {{ customer.contract.from_date|short_date }}г.{% else %}нет номера{% endif %}»!
+    Заказ № {{ order.number }}
   </h2>
   <hr/>
   <table class="no-border">
@@ -95,12 +95,14 @@
     <tr>
       <td>Покупатель:</td>
       <td class="bold">
-        ИНН {{ customer.inn }} КПП {{ customer.kpp }} {{ customer.name }}{% if customer.address %}, {{ customer.address }}{% endif %}{% if customer.phone %}, тел.: {{ customer.phone }}{% endif %}{% if customer.email %}, e-mail: {{ customer.email }}{% endif %}
+        ИНН {{ customer.inn }} КПП {{ customer.kpp }} {{ customer.company }}{% if customer.address %}, {{ customer.address }}{% endif %}
       </td>
     </tr>
     <tr>
-      <td>Основание:</td>
-      <td class="bold">Договор поставки № {% if customer.contract.number %}{{ customer.contract.number }} от {{ customer.contract.from_date|short_date }}г.{% else %}нет номера{% endif %}</td>
+      <td>Контактное лицо:</td>
+      <td class="bold">
+          {{ customer.name }}{% if customer.phone %}, {{ customer.phone }}{% endif %}{% if customer.email %}, e-mail: {{ customer.email }}{% endif %}
+      </td>
     </tr>
   </table>
   <table>
@@ -154,12 +156,14 @@
   </div>
   <div>
     <p>
-      Счёт действителен в течение 2 (двух) дней с момента выставления. НДС 20% включен на все устройства.
-      При сумме отгружаемого товара от 100 тыс.руб. доставка бесплатная. При сумме отгружаемого товара менее 100 тыс. руб. доставка осуществляется транспортными компаниями за счет Получателя.
-      Гарантия составляет 2 (два) года на все устройства, кроме аккумуляторов, гарантия на которые составляет 1 (один) год.
-      Срок поставки оборудования обычно составляет не более 5 недель. Если вы хотите узнать более точные сроки доставки,
-      нажмите на кнопку «Чат с оператором» или отправьте сообщение с номером заказа на электронный адрес
-      <a href="mailto:{% if shure.email %}{{ shure.email }}{% endif %}" target="_blank">{% if shure.email %}{{ shure.email }}{% endif %}</a>
+        Счёт действителен в течение 2 (двух) рабочих дней с момента выставления. 
+        НДС 20% включен на все устройства и программное обеспечение. 
+        При сумме отгружаемого товара от 100 тыс.руб. доставка бесплатная. 
+        При сумме отгружаемого товара менее 100 тыс. руб. доставка осуществляется транспортными компаниями за счет Покупателя. 
+        Гарантия составляет 2 (два) года на все устройства Shure, кроме аккумуляторов, гарантия на которые составляет 1 (один) год. 
+        Гарантия на устройства RF Venue составляет 1 (один) год. 
+        По всем вопросам, включая вопросы гарантийного и постгарантийного обслуживания, пожалуйста, обращайтесь на электронный адрес 
+      <a href="mailto:info@shure.ru" target="_blank">info@shure.ru</a>
     </p>
   </div>
   <hr/>
