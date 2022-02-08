@@ -89,7 +89,7 @@
     <tr>
       <td>Поставщик:</td>
       <td class="bold">
-        ИНН {{ shure.inn }} КПП {{ shure.kpp }} {{ shure.name }}{% if shure.address %}, {{ shure.address }}{% endif %}{% if shure.phone %}, тел.: {{ shure.phone }}{% endif %}{% if shure.email %}, e-mail: {{ shure.email }}{% endif %}
+        ИНН {{ shure.inn }} КПП {{ shure.kpp }} {{ shure.name }}{% if shure.address %}, {{ shure.address }}{% endif %}{% if shure.phone %}, {{ shure.phone }}{% endif %}{% if shure.email %}, e-mail: {{ shure.email }}{% endif %}
       </td>
     </tr>
     <tr>
@@ -189,11 +189,6 @@
       <td class="small">
         {% if shure.accountant.proxy %}На основании {{ shure.accountant.proxy }}{% endif %}
       </td>
-    </tr>
-    <tr>
-      <td rowspan="2">Менеджер</td>
-      <td class="border-bottom"></td>
-      <td>/ {{ shure.manager.name }} /</td>
     </tr>
     <tr>
       <td></td>
