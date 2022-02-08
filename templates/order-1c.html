@@ -177,7 +177,7 @@
     <tr>
       <td></td>
       <td class="small">
-        {% if shure.director.proxy %}На основании {{ shure.director.proxy }}{% endif %}
+        {% if shure.director.proxy %}{{ shure.director.proxy }}{% endif %}
       </td>
     </tr>
     <tr>
@@ -188,15 +188,10 @@
     <tr>
       <td></td>
       <td class="small">
-        {% if shure.accountant.proxy %}На основании {{ shure.accountant.proxy }}{% endif %}
+        {% if shure.accountant.proxy %}{{ shure.accountant.proxy }}{% endif %}
       </td>
     </tr>
-    <tr>
-      <td></td>
-      <td class="small">
-        {% if shure.manager.proxy %}На основании {{ shure.manager.proxy }}{% endif %}
-      </td>
-    </tr>
+
   </table>
   </body>
 </html>
